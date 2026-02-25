@@ -45,7 +45,7 @@ def run_gradcam(image_path, model, device):
     pred_label = "FAKE" if prob > 0.5 else "REAL"
     confidence = prob if prob > 0.5 else 1 - prob
 
-    targets = [ClassifierOutputTarget(0)]
+    targets = None
     grayscale_cam = cam(input_tensor=input_tensor, targets=targets)[0]
     visualization = show_cam_on_image(rgb_img.astype(np.float32), grayscale_cam, use_rgb=True)
 
