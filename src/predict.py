@@ -29,16 +29,16 @@ def predict(image_path):
         output = model(input_tensor).squeeze(1)
         prob = torch.sigmoid(output).item()
 
-    label = "FAKE (AI-generisana)" if prob > 0.5 else "REAL (Realna fotografija)"
+    label = "FAKE (AI-generated)" if prob > 0.5 else "REAL (Real photo)"
     confidence = prob if prob > 0.5 else 1 - prob
 
-    print(f"Slika: {image_path}")
-    print(f"Predikcija: {label}")
-    print(f"Pouzdanost: {confidence*100:.2f}%")
+    print(f"Image: {image_path}")
+    print(f"Prediction: {label}")
+    print(f"Confidence: {confidence*100:.2f}%")
 
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print("Upotreba: python src/predict.py <putanja_do_slike>")
+        print("Usage: python src/predict.py <image_path>")
     else:
         predict(sys.argv[1])

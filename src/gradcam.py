@@ -58,8 +58,8 @@ def run_gradcam(image_path, model, device):
     output_path = os.path.join('results', f'gradcam_{os.path.basename(image_path)}')
     plt.savefig(output_path, dpi=150)
     plt.close()
-    print(f"Predikcija: {pred_label} ({confidence*100:.1f}%)")
-    print(f"Sačuvano: {output_path}")
+    print(f"Prediction: {pred_label} ({confidence*100:.1f}%)")
+    print(f"Saved: {output_path}")
 
 
 def main():

@@ -52,7 +52,7 @@ def eval_epoch(model, loader, criterion, device):
 
 def main():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print(f"Koristim: {device}")
+    print(f"Using: {device}")
 
     BATCH_SIZE = 8
     EPOCHS = 10
@@ -80,9 +80,9 @@ def main():
         if val_acc > best_acc:
             best_acc = val_acc
             torch.save(model.state_dict(), 'models/best_model.pth')
-            print(f"Novi najbolji model sačuvan! Acc: {best_acc*100:.2f}%")
+    print(f"New best model saved! Acc: {best_acc*100:.2f}%")
 
-    print(f"\nTrening završen. Najbolja tačnost: {best_acc*100:.2f}%")
+    print(f"\nTraining complete. Best accuracy: {best_acc*100:.2f}%")
 
 
 if __name__ == '__main__':
