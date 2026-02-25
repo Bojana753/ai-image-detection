@@ -89,6 +89,9 @@ python src/gradcam.py
 - Grad-CAM pokazuje bias ka uglovima slike zbog karakteristika dataseta
 - Model je primarno treniran na Stable Diffusion slikama, pa generalizacija na druge generatore (DALL-E, Midjourney) može varirati
 
+## Poster
+[Pogledaj poster](https://www.canva.com/design/DAHCWm23Zeg/zkD0GKahKvSdYiU1y0RoWg/edit?utm_content=DAHCWm23Zeg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
 ## Autor
 
 Bojana Milošević, RA85-2022  
