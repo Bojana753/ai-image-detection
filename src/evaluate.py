@@ -39,8 +39,9 @@ def main():
 
     labels, preds, probs = evaluate(model, test_loader, device)
 
+    auc = roc_auc_score(labels, probs)
     print(classification_report(labels, preds, target_names=['REAL', 'FAKE']))
-    print(f"AUC-ROC: {roc_auc_score(labels, probs):.4f}")
+    print(f"AUC-ROC: {auc:.4f}")
 
     cm = confusion_matrix(labels, preds)
     ConfusionMatrixDisplay(cm, display_labels=['REAL', 'FAKE']).plot(cmap='Blues')
@@ -49,7 +50,6 @@ def main():
     plt.close()
 
     fpr, tpr, _ = roc_curve(labels, probs)
-    auc = roc_auc_score(labels, probs)
     plt.plot(fpr, tpr, label=f'AUC = {auc:.4f}')
     plt.plot([0, 1], [0, 1], '--', color='gray')
     plt.xlabel('False Positive Rate')

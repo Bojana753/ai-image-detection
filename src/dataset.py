@@ -8,7 +8,6 @@ class CIFAKEDataset(Dataset):
         self.samples = []
         self.transform = transform
         
-        # 0 = REAL, 1 = FAKE
         for label, folder in enumerate(['REAL', 'FAKE']):
             folder_path = os.path.join(root_dir, folder)
             for img_name in os.listdir(folder_path):
@@ -55,8 +54,5 @@ def get_dataloaders(data_dir, batch_size=32):
     
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=2)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=2)
-    
-    print(f"Train: {len(train_dataset)} slika")
-    print(f"Test: {len(test_dataset)} slika")
-    
+        
     return train_loader, test_loader

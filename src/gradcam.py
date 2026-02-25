@@ -1,10 +1,8 @@
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
-import cv2
 from PIL import Image
 from pytorch_grad_cam import GradCAM
-from pytorch_grad_cam.utils.model_targets import ClassifierOutputTarget
 from pytorch_grad_cam.utils.image import show_cam_on_image
 from torchvision import transforms
 import os
@@ -45,8 +43,7 @@ def run_gradcam(image_path, model, device):
     pred_label = "FAKE" if prob > 0.5 else "REAL"
     confidence = prob if prob > 0.5 else 1 - prob
 
-    targets = None
-    grayscale_cam = cam(input_tensor=input_tensor, targets=targets)[0]
+    grayscale_cam = cam(input_tensor=input_tensor, targets=None)[0]
     visualization = show_cam_on_image(rgb_img.astype(np.float32), grayscale_cam, use_rgb=True)
 
     fig, axes = plt.subplots(1, 2, figsize=(10, 4))
