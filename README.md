@@ -1,57 +1,68 @@
-# AI Image Detection
+# Može li mašina prepoznati mašinu?
+### Detekcija AI-generisanih slika korišćenjem dubokog učenja
 
-Sistem za automatsku detekciju AI-generisanih slika korišćenjem EfficientNet-B4 modela sa Grad-CAM vizualizacijom.
+<p align="center">
+  <img src="robot-painting.jpg" width="700"/>
+</p>
 
-## Opis projekta
+> Sistem prima sliku na ulazu i klasifikuje da li je u pitanju **AI-generisana slika** ili **realna fotografija** — koristeći transfer learning sa EfficientNet-B4 i Grad-CAM vizualizaciju.
 
-Sistem prima sliku na ulazu i klasifikuje da li je u pitanju AI-generisana slika ili realna fotografija. Koristi transfer learning pristup sa pretreniranim EfficientNet-B4 modelom i Grad-CAM tehniku za vizualizaciju delova slike koje model koristi za odluku.
+**Autor:** Bojana Milošević, RA85-2022  
+**Asistent:** Aleksandra Kaplar  
+**Predmet:** Soft Computing — FTN Novi Sad, 2026
+
+---
 
 ## Rezultati
 
 | Metrika | Vrednost |
 |---------|----------|
-| Accuracy | 99% |
+| **Accuracy** | **99%** |
 | F1-Score | 0.99 |
 | AUC-ROC | 0.9992 |
 | Precision (FAKE) | 0.98 |
 | Recall (FAKE) | 0.99 |
 
+### Confusion Matrix
+![Confusion Matrix](results/confusion_matrix.png)
+
+### ROC Kriva
+![ROC Curve](results/roc_curve.png)
+
+---
+
 ## Dataset
 
-[CIFAKE - Real and AI-Generated Synthetic Images](https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images)
-- 120,000 slika (60,000 realnih + 60,000 AI-generisanih)
+**CIFAKE — Real and AI-Generated Synthetic Images** ([Kaggle](https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images))
+
+- 120,000 slika ukupno (60,000 realnih + 60,000 AI-generisanih)
 - Realne slike iz CIFAR-10 dataseta
-- AI slike generisane pomoću Stable Diffusion
+- AI slike generisane pomoću **Stable Diffusion**
+- Podela: 100,000 train / 20,000 test
 
-## Tehnologije
+---
 
-- Python 3.12
-- PyTorch 2.7
-- EfficientNet-B4 (ImageNet pretrained)
-- Grad-CAM
-- scikit-learn, matplotlib, OpenCV
+## Metodologija
 
-## Struktura projekta
-```
-ai-image-detection/
-├── data/
-│   ├── train/          # 100,000 slika za trening
-│   ├── test/           # 20,000 slika za testiranje
-│   └── cross_generator_test/  # DALL-E test slike
-├── models/
-│   └── best_model.pth  # Najbolji model (Epoch 9, 98.62%)
-├── results/
-│   ├── confusion_matrix.png
-│   ├── roc_curve.png
-│   └── gradcam_*.jpg
-└── src/
-    ├── dataset.py
-    ├── model.py
-    ├── train.py
-    ├── evaluate.py
-    ├── gradcam.py
-    └── predict.py
-```
+- **Arhitektura:** EfficientNet-B4 (pretreniran na ImageNet)
+- **Pristup:** Transfer learning — fine-tuning klasifikatora
+- **Data augmentation:** random flip, rotacija, color jitter
+- **Optimizer:** AdamW | **Epochs:** 10 | **Batch size:** 8
+- **Explainability:** Grad-CAM vizualizacija
+
+---
+
+## Grad-CAM
+
+Grad-CAM tehnika otkriva koje regione slike model koristi kao dokaz AI generisanja. Model prepoznaje karakteristične AI artefakte kao što su savršene refleksije, neprirodno osvetljenje i glatke konture.
+
+---
+
+## Cross-Generator Test
+
+Model je treniran na Stable Diffusion slikama, a testiran na **DALL-E** slikama (auto, meda, žena) — postigao je **100% tačnost**, što potvrđuje generalizaciju modela na druge AI generatore.
+
+---
 
 ## Pokretanje
 
@@ -83,16 +94,45 @@ python src/predict.py "putanja/do/slike.jpg"
 python src/gradcam.py
 ```
 
+---
+
+## Struktura projekta
+
+```
+ai-image-detection/
+├── data/
+│   ├── train/                  # 100,000 slika za trening
+│   ├── test/                   # 20,000 slika za testiranje
+│   └── cross_generator_test/   # DALL-E test slike
+├── models/
+│   └── best_model.pth          # Najbolji model (Epoch 9, 98.62%)
+├── results/
+│   ├── confusion_matrix.png
+│   ├── roc_curve.png
+│   └── gradcam_*.jpg
+└── src/
+    ├── dataset.py
+    ├── model.py
+    ├── train.py
+    ├── evaluate.py
+    ├── gradcam.py
+    └── predict.py
+```
+
+---
+
 ## Ograničenja
 
-- Model je treniran na CIFAR-10 slikama (originalno 32x32 piksela) što dovodi do mutnih vizualizacija
+- Model je treniran na CIFAR-10 slikama (originalno 32×32 px) što dovodi do mutnih vizualizacija
 - Grad-CAM pokazuje bias ka uglovima slike zbog karakteristika dataseta
-- Model je primarno treniran na Stable Diffusion slikama, pa generalizacija na druge generatore (DALL-E, Midjourney) može varirati
+- Model je primarno treniran na Stable Diffusion slikama — generalizacija na Midjourney može varirati
+
+---
 
 ## Poster
-[Pogledaj poster](https://www.canva.com/design/DAHCWm23Zeg/zkD0GKahKvSdYiU1y0RoWg/edit?utm_content=DAHCWm23Zeg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
-## Autor
+<p align="center">
+  <img src="poster.png" width="700"/>
+</p>
 
-Bojana Milošević, RA85-2022  
-Asistent: Aleksandra Kaplar
+[Pogledaj poster](poster.pdf)
