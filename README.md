@@ -135,4 +135,4 @@ ai-image-detection/
   <img src="poster.png" width="700"/>
 </p>
 
-[Pogledaj poster](poster.pdf)
+[Pogledaj poster](https://www.canva.com/design/DAHCWm23Zeg/zkD0GKahKvSdYiU1y0RoWg/edit?utm_content=DAHCWm23Zeg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
