@@ -9,4 +9,4 @@ model = get_model(device)
 model.load_state_dict(torch.load('models/best_model.pth'))
 model.eval()
 
-run_gradcam('data/cross_generator_test/dalle_woman.jpg', model, device)
+run_gradcam('data/cross_generator_test/1.jpg', model, device)
